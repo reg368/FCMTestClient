@@ -1,0 +1,69 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+/*-------------listTb---------*/
+.listTb {
+	margin:0 0 0px 0;
+	padding:0;
+	clear:both;
+}
+.listTb  table {
+	border-collapse:collapse;
+	width: 100%;
+	clear:both;
+	margin:0;
+	padding:0;
+}
+.listTb  table table, .listTb  table table td {
+	border-style: none;
+}
+.listTb  table caption {
+	text-align: left;
+	vertical-align: top;
+}
+.listTb  table th {
+	vertical-align: top;
+	padding: 3px 3px 2px 3px;
+	border:0;
+	color:#333;
+	font-weight: bold;
+	border-bottom:2px solid #afd160;
+	background-color:#e0eac8;
+	white-space:nowrap;
+}
+.listTb  table td img{ vertical-align:middle;}
+.listTb  table td {
+	vertical-align: top;
+	padding: 3px 3px;	
+	border-bottom: 1px dotted #e4ded5;
+}
+.listTb  table td.open{
+	color:#737256;
+}
+.listTb  table td.notopen{ color:#C30;}
+.listTb  table td.date{
+	color:#960;
+	padding:0 0 0 0px;
+}
+
+.listTb  table td a, .formTb table td a, .formTb2 table td a{ text-decoration:underline; color:#960;}
+.listTb  table tr:hover{ text-decoration:none;background: #fbfae9;}
+
+.listTb  table .delete img {
+	height: 16px;
+	width: 16px;
+	margin: 0;
+	padding: 0;
+}
+.listTb  table .delete a{
+	background: url(../images/img06a.gif) no-repeat 0 0;
+	padding: 0 0 2px 0;
+}
+.listTb  table .delete a:hover{
+	background: url(../images/img06b.gif) no-repeat 0 0;
+}
+.listTb  table table{ border:0;}
+/*------------------setbox*/
+
+.listTb td .setbox{ padding:5px 0 5px 0px;}
+.listTb td .setbox div{ margin:2px 0; }

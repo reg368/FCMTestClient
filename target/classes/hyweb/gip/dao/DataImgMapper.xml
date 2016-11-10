@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hyweb.gip.dao.DataImgMapper" >
+  <resultMap id="BaseResultMap" type="hyweb.gip.pojo.mybatis.table.DataImg" >
+    <id column="diDataId" property="didataid" jdbcType="BIGINT" />
+    <id column="diImgSeq" property="diimgseq" jdbcType="NVARCHAR" />
+    <id column="diTableName" property="ditablename" jdbcType="NVARCHAR" />
+    <result column="diImgTitle" property="diimgtitle" jdbcType="NVARCHAR" />
+    <result column="diImgSort" property="diimgsort" jdbcType="INTEGER" />
+    <result column="diImgPublic" property="diimgpublic" jdbcType="CHAR" />
+    <result column="diImgNews" property="diimgnews" jdbcType="CHAR" />
+    <result column="diImgMain" property="diimgmain" jdbcType="CHAR" />
+    <result column="imgFileUri" property="imgfileuri" jdbcType="NVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    diDataId, diImgSeq, diTableName, diImgTitle, diImgSort, diImgPublic, diImgNews, diImgMain
+  </sql>
+  <select id="getById" resultMap="BaseResultMap" parameterType="hyweb.gip.pojo.mybatis.table.DataImgKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from DataImg
+    where diDataId = #{didataid,jdbcType=BIGINT}
+      and diImgSeq = #{diimgseq,jdbcType=NVARCHAR} 
+      and diTableName = #{ditablename,jdbcType=NVARCHAR} 
+  </select>
+  <delete id="delete" parameterType="hyweb.gip.pojo.mybatis.table.DataImgKey" >
+    delete from DataImg
+    where diDataId = #{didataid,jdbcType=INTEGER} 
+      and diTableName = #{ditablename,jdbcType=NVARCHAR} 
+  </delete>
+  <insert id="insert" parameterType="hyweb.gip.pojo.mybatis.table.DataImg" >
+    insert into DataImg (diDataId, diImgSeq, diTableName, diImgTitle, 
+      diImgSort, diImgPublic, diImgNews, 
+      diImgMain)
+    values (#{didataid,jdbcType=BIGINT}, #{diimgseq,jdbcType=NVARCHAR}, #{ditablename,jdbcType=NVARCHAR}, #{diimgtitle,jdbcType=NVARCHAR}, 
+      #{diimgsort,jdbcType=INTEGER}, #{diimgpublic,jdbcType=CHAR}, #{diimgnews,jdbcType=CHAR}, 
+      #{diimgmain,jdbcType=CHAR})
+  </insert>
+  <update id="update" parameterType="hyweb.gip.pojo.mybatis.table.DataImg" >
+    update DataImg
+    set diImgTitle = #{diimgtitle,jdbcType=NVARCHAR},
+      diImgSort = #{diimgsort,jdbcType=INTEGER},
+      diImgPublic = #{diimgpublic,jdbcType=CHAR},
+      diImgNews = #{diimgnews,jdbcType=CHAR},
+      diImgMain = #{diimgmain,jdbcType=CHAR}
+    where diDataId = #{didataid,jdbcType=BIGINT}
+      and diImgSeq = #{diimgseq,jdbcType=NVARCHAR} 
+      and diTableName = #{ditablename,jdbcType=NVARCHAR} 
+  </update>
+  <select id="getAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from DataImg
+  </select>
+  <select id="selectByData" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    a.diDataId, a.diImgSeq, a.diImgTitle, a.diImgSort, a.diImgPublic, a.diImgNews, a.diImgMain, b.imgFileUri 
+    from DataImg a 
+    left join ImgCenter b 
+    on a.diImgSeq = b.imgSeq
+    where diDataId = #{didataid,jdbcType=BIGINT} 
+   		  and diTableName = #{ditablename,jdbcType=NVARCHAR} 
+    order by a.diImgSort
+  </select>
+  <select id="getByDsId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    a.diDataId, a.diImgSeq, a.diTableName, a.diImgTitle, a.diImgSort, a.diImgPublic, a.diImgNews, a.diImgMain, b.imgFileUri
+    from DataImg a 
+    left join ImgCenter b 
+    on a.diImgSeq = b.imgSeq
+    where diDataId = #{didataid,jdbcType=BIGINT}
+    order by a.diImgSort
+  </select>
+  <select id="selectMapByDsId" resultType="hashmap" parameterType="java.lang.Long">
+    select d.didataid as dsid, c.imgid as imgid, d.diimgtitle AS title, c.imgfileuri AS url, d.diimgpublic AS ispublic, d.diimgnews AS news, d.ditablename as type,
+    d.diimgmain as mainimg, c.imgcontent as content   
+    from DataImg d join ImgCenter c on d.diimgseq = c.imgseq 
+    where d.didataid = #{didataid,jdbcType=BIGINT} 
+    order by d.diImgSort
+  </select>
+  <select id="selectMapByDataidAndImgSeq" resultType="hashmap" parameterType="java.lang.Long">
+    select top 1 d.didataid as dsid, c.imgid as imgid, d.diimgtitle AS title, c.imgfileuri AS url, d.diimgpublic AS ispublic, d.diimgnews AS news, d.ditablename as type,
+    d.diimgmain as mainimg, c.imgcontent as content   
+    from DataImg d join ImgCenter c on d.diimgseq = c.imgseq 
+    join dataset ds on ds.diImgMainSeq = d.diimgseq 
+    where d.diimgseq = #{diimgseq,jdbcType=BIGINT} and d.didataid = #{didataid} 
+    order by d.diImgSort
+  </select>
+  <select id="selectMapByImgSeq" resultType="hashmap" parameterType="java.lang.Long">
+    select c.imgid as imgid, c.imgtitle AS title, c.imgfileuri AS url, c.imgcontent as content   
+    from ImgCenter c 
+    where c.imgseq = #{diimgseq,jdbcType=BIGINT} 
+  </select>
+  <select id="getMainImgByDsId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select top 1 
+    <include refid="Base_Column_List" />
+    from DataImg WHERE diImgMain='Y' AND diDataId=#{didataid,jdbcType=BIGINT} 
+  </select>
+    <select id="getByDsIdAndIseq" resultMap="BaseResultMap" parameterType="map">
+    select  
+    <include refid="Base_Column_List" />
+    from DataImg WHERE diDataId=${didataid} and diImgSeq = ${diimgseq} and diImgMain='Y'
+  </select>
+  <select id="getNewsImgByDsId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select  
+    <include refid="Base_Column_List" />
+    from DataImg WHERE diImgNews='Y' AND diDataId=#{didataid,jdbcType=BIGINT} 
+  </select>
+  <select id="selectByTableName" resultMap="BaseResultMap" parameterType="map">
+  	select top 1 
+    <include refid="Base_Column_List" />
+    from DataImg WHERE diDataId=${didataid} AND diTableName =${ditablename}
+  </select>
+      <select id="getByDsIdAndImgseq" resultMap="BaseResultMap" parameterType="map">
+    select  
+    <include refid="Base_Column_List" />
+    from DataImg WHERE diDataId=${didataid} and diImgSeq = ${diimgseq}
+  </select>
+</mapper>

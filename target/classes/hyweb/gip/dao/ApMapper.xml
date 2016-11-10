@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hyweb.gip.dao.ApMapper" >
+  <resultMap id="BaseResultMap" type="hyweb.gip.pojo.mybatis.table.Ap" >
+    <id column="apId" property="apid" jdbcType="INTEGER" />
+    <result column="apEName" property="apename" jdbcType="VARCHAR" />
+    <result column="apCName" property="apcname" jdbcType="NVARCHAR" />
+    <result column="apCat" property="apcat" jdbcType="NVARCHAR" />
+    <result column="apUrl" property="apurl" jdbcType="NVARCHAR" />
+    <result column="apSort" property="apsort" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    apId, apEName, apCName, apCat, apUrl, apSort
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from BaphiqAp
+    where apId = #{apid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from BaphiqAp
+    where apId = #{apid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="hyweb.gip.pojo.mybatis.table.Ap" 
+  		useGeneratedKeys="true" keyProperty="apid">
+    insert into BaphiqAp (apEName, apCName, 
+      apCat, apUrl, apSort
+      )
+    values (#{apename,jdbcType=VARCHAR}, #{apcname,jdbcType=NVARCHAR}, 
+      #{apcat,jdbcType=NVARCHAR}, #{apurl,jdbcType=NVARCHAR}, #{apsort,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="hyweb.gip.pojo.mybatis.table.Ap" >
+    update BaphiqAp
+    set apEName = #{apename,jdbcType=VARCHAR},
+      apCName = #{apcname,jdbcType=NVARCHAR},
+      apCat = #{apcat,jdbcType=NVARCHAR},
+      apUrl = #{apurl,jdbcType=NVARCHAR},
+      apSort = #{apsort,jdbcType=INTEGER}
+    where apId = #{apid,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BaphiqAp order by apSort
+  </select>
+   <select id="selectNoUseAp" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select distinct b.apId, b.apEName, b.apCName, b.apCat, b.apUrl, b.apSort 
+    from BaphiqUgrpAp a join BaphiqAp b on a.apId!=b.apId 
+    where b.apid not in (
+    select b.apId from BaphiqUgrpAp a join BaphiqAp b on a.apId=b.apId
+    where a.ugrpId = #{ugrpid,jdbcType=INTEGER}
+    )
+  </select>
+     <select id="selectUseAp" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select distinct d.apid,d.apename,d.apcname,d.apcat,d.apurl,d.apsort 
+    from BaphiqInfoUser 
+    cross apply dbo.SplitStrings(ugrpid, ',') as a 
+    join Baphiqugrp b on a.item=b.ugrpid 
+    join BaphiqugrpAp c on b.ugrpid=c.ugrpid 
+    join Baphiqap d on c.apid=d.apid 
+    where userid = #{userid,jdbcType=NVARCHAR} and (c.apFunc &amp; 1 = 1)
+    order by d.apsort
+  </select>
+  <select id="selectApByEName" resultType="hyweb.gip.pojo.mybatis.table.Ap" parameterType="java.lang.String">
+    select  
+    <include refid="Base_Column_List" />
+    from BaphiqAp 
+    where apEName = #{ename} 
+    order by apSort
+  </select>
+  <select id="list" resultMap="BaseResultMap">
+  	select * from (
+		select row_number() over (order by apSort) as row_num, 
+		<include refid="Base_Column_List" /> 
+		from BaphiqAp 
+	) as tb 
+	where row_num between ((#{page} - 1) * #{showNum} + 1) and (#{page}*#{showNum}) 
+  </select>
+  <select id="countAll" resultType="int">
+    select count(*) 
+    from BaphiqAp 
+  </select>
+</mapper>

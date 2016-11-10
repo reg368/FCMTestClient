@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="protocol" value="smtp"/>
+		<property name="host" value="mail.hyweb.com.tw" />
+		<property name="port" value="465" />
+		<property name="username" value="testemail@hyweb.com.tw" />
+		<property name="password" value="!3edc4rfv$" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.timeout">25000</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="setSendMail" class="java.lang.Boolean"><!-- 是否要寄信 -->
+		<constructor-arg value="true" />
+	</bean>
+	<bean id="setFilter" class="java.lang.Boolean"><!-- 是否過濾錯誤的Email -->
+		<constructor-arg value="true" />
+	</bean>
+	<bean id="setEncoding" class="java.lang.String"><!-- 編碼方式 -->
+		<constructor-arg value="UTF-8" />
+	</bean>
+	<bean id="setFromName" class="java.lang.String"><!-- 寄信者名稱 -->
+		<constructor-arg value="今周刊" />
+	</bean>
+	<bean id="setFromAddress" class="java.lang.String"><!-- 寄信者Email -->
+		<constructor-arg value="service@mail.btoday.com.tw" />
+	</bean>
+
+	<bean id="shelvesECMailSender" class="hyweb.gip.mail.MailDataSender">
+		<description>今週刊</description>
+		<property name="sendMail" ref="setSendMail" />
+		<property name="filter" ref="setFilter" />
+		<property name="encoding" ref="setEncoding" />
+		<property name="mailSender" ref="mailSender" />
+		<property name="fromName" ref="setFromName" />
+		<property name="fromAddress" ref="setFromAddress" />
+		<property name="subjectTemplate" value="@{subject}" />
+		<property name="contentTemplate">
+			<value>
+			<![CDATA[
+			<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>購物通知信</title>
+<style type="text/css">
+.Tb{ width:95%; border-collapse:0; font-size:0.95em; margin:10PX auto;}
+.Tb td{ border-bottom:1px solid #ccc; padding:5px; }
+.Tb th{ text-align:left;  border-bottom:2px solid #555;  padding:5px;}
+.Tb tr.evenRow{ background: #F9F8F2; }
+.Tb a{ color:#06C;}
+.HL{ color:#C00;}
+
+</style>
+</head>
+
+<body>
+<div style="width:95%; margin:0 auto; padding:5px;" >
+
+    <div style="text-align:center; margin:10px 0;">
+    <p style="color:#c00;font-size:1.25em; font-weight:bold;">商品上架通知!</p>
+	<p style="text-align:left;">您好，商品「商品上架名稱」已於@{sCreateDate}由管理人員上架，特此通知。</p>
+    <div style="color:#333; font-weight:bold; text-align:left;">
+    	<span style="color:#c00; font-weight:bold;">課程資訊：</span>
+    	<ol>
+    	<li>上架商品名稱：@{sTitle}</li>
+		<li>上架起迄時間：@{sStartDate} ～ @{sEndDate}</li>
+    	<li>商品網址：<a href="@{url}">商品資訊網頁</a> <span style="color:#c00">*請注意，若商品有設定上架日起迄日，上架日期區間外將無法檢視前台網頁</span>。</li>
+    	</ol>
+	</div>    
+    </div>
+  
+
+<p style="text-align:center; font-size:small;">
+讀者服務電話：(02)2581-6196轉207~209 | 服務時間：週一～週五 09:00~17:30例假日除外 | 24小時傳真電話：(02)2531-6438<br/>
+客戶服務信箱：service@mail.btoday.com.tw | 今周文化事業(股)公司/今周行銷(股)公司 版權所有<br/>
+Copyright © 2013 Business Today All rights reserved</p>
+
+</div>
+
+</body>
+</html>
+			
+			]]>
+			</value>
+		</property>
+	</bean>
+	<bean id="lectureSender" class="hyweb.gip.mail.MailDataSender">
+		<description>講座信件</description>
+		<property name="sendMail" ref="setSendMail" />
+		<property name="filter" ref="setFilter" />
+		<property name="encoding" ref="setEncoding" />
+		<property name="mailSender" ref="mailSender" />
+		<property name="fromName" ref="setFromName" />
+		<property name="fromAddress" ref="setFromAddress" />
+	</bean>
+</beans>

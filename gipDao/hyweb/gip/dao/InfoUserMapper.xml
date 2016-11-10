@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hyweb.gip.dao.InfoUserMapper" >
+  <resultMap id="BaseResultMap" type="hyweb.gip.pojo.mybatis.table.InfoUser" >
+    <id column="userId" property="userid" jdbcType="NVARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="NVARCHAR" />
+    <result column="nickName" property="nickname" jdbcType="NVARCHAR" />
+    <result column="sex" property="sex" jdbcType="CHAR" />
+    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="cellPhone" property="cellphone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="NVARCHAR" />
+    <result column="deptId" property="deptid" jdbcType="INTEGER" />
+    <result column="jobTitles" property="jobtitles" jdbcType="NVARCHAR" />
+    <result column="createUser" property="createuser" jdbcType="INTEGER" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="ugrpId" property="ugrpid" jdbcType="NVARCHAR" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="visitCount" property="visitcount" jdbcType="INTEGER" />
+    <result column="postLimit" property="postlimit" jdbcType="VARCHAR" />
+    <result column="reviewLimit" property="reviewlimit" jdbcType="VARCHAR" />
+    <result column="shelvesLimit" property="shelveslimit" jdbcType="VARCHAR" />
+    <result column="updateUser" property="updateuser" jdbcType="INTEGER" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    userId, password, name, nickName, sex, birthday, tel, cellPhone, email, deptId, jobTitles, 
+    createUser, createTime, ugrpId, status, visitCount, postLimit, reviewLimit, shelvesLimit, 
+    updateUser, updateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from BaphiqInfoUser
+    where userId = #{userid,jdbcType=NVARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from BaphiqInfoUser
+    where userId = #{userid,jdbcType=NVARCHAR}
+  </delete>
+  <insert id="insert" parameterType="hyweb.gip.pojo.mybatis.table.InfoUser" >
+    insert into BaphiqInfoUser (userId, password, name, 
+      nickName, sex, birthday, 
+      tel, cellPhone, email, 
+      deptId, jobTitles, createUser, 
+      createTime, ugrpId, status, 
+      visitCount, postLimit, reviewLimit, 
+      shelvesLimit, updateUser, updateTime
+      )
+    values (#{userid,jdbcType=NVARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=NVARCHAR}, 
+      #{nickname,jdbcType=NVARCHAR}, #{sex,jdbcType=CHAR}, #{birthday,jdbcType=TIMESTAMP}, 
+      #{tel,jdbcType=VARCHAR}, #{cellphone,jdbcType=VARCHAR}, #{email,jdbcType=NVARCHAR}, 
+      #{deptid,jdbcType=INTEGER}, #{jobtitles,jdbcType=NVARCHAR}, #{createuser,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{ugrpid,jdbcType=NVARCHAR}, #{status,jdbcType=CHAR}, 
+      #{visitcount,jdbcType=INTEGER}, #{postlimit,jdbcType=VARCHAR}, #{reviewlimit,jdbcType=VARCHAR}, 
+      #{shelveslimit,jdbcType=VARCHAR}, #{updateuser,jdbcType=INTEGER}, #{updatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="hyweb.gip.pojo.mybatis.table.InfoUser" >
+    update BaphiqInfoUser
+    set password = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=NVARCHAR},
+      nickName = #{nickname,jdbcType=NVARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      tel = #{tel,jdbcType=VARCHAR},
+      cellPhone = #{cellphone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=NVARCHAR},
+      deptId = #{deptid,jdbcType=INTEGER},
+      jobTitles = #{jobtitles,jdbcType=NVARCHAR},
+      ugrpId = #{ugrpid,jdbcType=NVARCHAR},
+      status = #{status,jdbcType=CHAR},
+      visitCount = #{visitcount,jdbcType=INTEGER},
+      postLimit = #{postlimit,jdbcType=VARCHAR},
+      reviewLimit = #{reviewlimit,jdbcType=VARCHAR},
+      shelvesLimit = #{shelveslimit,jdbcType=VARCHAR},
+      updateUser = #{updateuser,jdbcType=INTEGER},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where userId = #{userid,jdbcType=NVARCHAR}
+  </update>
+  <select id="selectByUserPassword" resultMap="BaseResultMap" parameterType="hyweb.gip.pojo.mybatis.table.InfoUser" >
+    select 
+    <include refid="Base_Column_List" />
+    from BaphiqInfoUser 
+    where userId = #{userid,jdbcType=NVARCHAR} 
+    and  password = #{password,jdbcType=NVARCHAR} 
+    and status = 'Y'
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BaphiqInfoUser  	
+  </select>
+  <select id="selectUserId" resultType="int" parameterType="java.lang.String" >
+    select 
+	count(1)
+    from BaphiqInfoUser
+    where userId = #{userid,jdbcType=NVARCHAR}
+  </select>
+  <update id="updateCountByPrimaryKey" parameterType="hyweb.gip.pojo.mybatis.table.InfoUser" >
+    update BaphiqInfoUser
+    set visitCount = #{visitcount,jdbcType=INTEGER}
+    where userId = #{userid,jdbcType=NVARCHAR}
+  </update>
+  <select id="list" resultMap="BaseResultMap">
+  	select * from (
+		select row_number() over (order by userid asc) as row_num, 
+		<include refid="Base_Column_List" /> 
+		from BaphiqInfoUser 
+		where deptid in (
+    	select deptseq from Baphiqdept where deptHierarchyCode like '${deptid}.%' 
+    	or deptHierarchyCode like '%.${deptid}.%' 
+    	or  deptHierarchyCode like '%.${deptid}%')
+     	or deptid = ${deptid}
+	) as tb 
+	where row_num between ((#{page} - 1) * #{showNum} + 1) and (#{page}*#{showNum}) 
+  </select>
+  
+  <select id="countAll" resultType="int">
+    select count(*) 
+    from BaphiqInfoUser 
+  </select>
+    <update id="updateWithoutPwd" parameterType="hyweb.gip.pojo.mybatis.table.InfoUser" >
+    update BaphiqInfoUser
+    set 
+      name = #{name,jdbcType=NVARCHAR},
+      nickName = #{nickname,jdbcType=NVARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      tel = #{tel,jdbcType=VARCHAR},
+      cellPhone = #{cellphone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=NVARCHAR},
+      deptId = #{deptid,jdbcType=INTEGER},
+      jobTitles = #{jobtitles,jdbcType=NVARCHAR},
+      ugrpId = #{ugrpid,jdbcType=NVARCHAR},
+      status = #{status,jdbcType=CHAR},
+      visitCount = #{visitcount,jdbcType=INTEGER},
+      postLimit = #{postlimit,jdbcType=VARCHAR},
+      reviewLimit = #{reviewlimit,jdbcType=VARCHAR},
+      shelvesLimit = #{shelveslimit,jdbcType=VARCHAR},
+      updateUser = #{updateuser,jdbcType=INTEGER},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where userId = #{userid,jdbcType=NVARCHAR}
+  </update>
+    <select id="countAllByDept" resultType="int" parameterType="map">
+    select count(*) 
+    from BaphiqInfoUser 
+    where deptid in (
+    	select deptseq from Baphiqdept where deptHierarchyCode like '${deptid}.%' 
+    	or deptHierarchyCode like '%.${deptid}.%' 
+    	or  deptHierarchyCode like '%.${deptid}%')
+     	or deptid = ${deptid}
+  </select>
+</mapper>

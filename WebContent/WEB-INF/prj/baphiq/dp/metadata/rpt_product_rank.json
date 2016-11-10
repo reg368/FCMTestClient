@@ -1,0 +1,41 @@
+{
+    "id": "rpt_product_rank",
+    "name": "rpt_product_rank",
+    "label": "農藥商品藥劑總量統計",
+    "meta": [
+        {"id":"sid","label":"編號"},
+        {"id":"pesticideName","label":"普通名稱"},
+        {"id":"barcode","label":"農藥條碼","eval":"$['barcode']='=\"'+$.barcode+' \"'"},
+        {"id":"domManufName","label":"藥商","eval":"$['domManufName']=$.domManufName.substring(0,4)"},
+        {"id":"fromCode","label":"劑型"},
+        {"id":"contents","label":"含量(%)"},
+        {"id":"outQty","label":"銷售數量"},
+        {"id":"traQty","label":"公制換算"},
+        {"id":"qty","label":"藥劑總量"},
+        {"id":"e_sid","eval":"$['sid']=$.$i+1"}
+    ],
+    "query": {
+        "$act": "rows",
+        "$cmd": [
+            " select b.pesticideName , a.barcode , b.domManufName, b.formCode, b.contents ,",
+            "    outQty, traQty , outQty*isnull(traQty,0) qty",
+            " from (select barcode , sum(isnull(outQty,0)) outQty  from stat_barcode_area ",
+            " where 1=1 ${=,cityId,string} ${>=,yymm,int,dp1} ${<=,yymm,int,dp2}" ,
+            " group by barcode) a",
+            " left join barcode_view b",
+            " on (a.barcode = b.barcode) ",
+            " where pesticideName = ${pesticideName,string} ",
+            " ${=,domManufName,string}"
+        ],
+        "$orderby": "barcode"
+    },
+
+    "export": {
+        "$rem": "",
+        "$act": "rows",
+        "$ref_cmd": "query",
+        "$ref_orderby": "query",
+        "$before": "e_sid,barcode,domManufName",
+        "$fields": "sid,pesticideName,barcode,domManufName,fromCode,contents,outQty,traQty,qty"
+    }
+}

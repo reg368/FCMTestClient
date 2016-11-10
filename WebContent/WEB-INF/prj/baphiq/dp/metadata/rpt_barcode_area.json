@@ -1,0 +1,71 @@
+{
+    "id": "rpt_brcode_area",
+    "name": "rpt_brcode_area",
+    "label": "零售品項進銷總量異常統計",
+    "meta": [
+        {"id":"statdate", "label":"統計截止日期：", "eval":"$['statdate']=$$.?statdate" },
+        {"id":"allow", "label":"商品量容許值：", "eval":"$['allow']=$.?allow" },
+        {"id":"sid","label":"編號"},
+        {"id":"barcode","label":"農藥條碼"},
+        {"id":"pesticideName","label":"普通名稱"},   
+        {"id":"formCode","label":"劑型","eval":"$['formCode']= ($.?formCode != null ? $.formCode.trim():'') "},   
+        {"id":"domManuf","label":"製藥商","eval":"$['domManuf']= (  $.?domManufName != null ? $.?domManufName.substring(0,4):'') + (   $.?domManufId !=null ?   '('+$.?domManufId+')' : '' )  "},
+        {"id":"contents","label":"含量(%)"},
+        {"id":"stock","label":"庫存量"},
+        {"id":"inQty","label":"進貨量"},
+        {"id":"outQty","label":"銷貨量"},
+        {"id":"errQty","label":"超賣量"},
+        {"id":"e_i","eval":"$['sid']=$.$i+1"},
+        {"id":"e_barcode","eval":"$['barcode']='=\"'+$.barcode+' \"'"}
+    ],
+    "query": {
+        "$act": "rows",
+        "$cmd": [
+            " select tv.barcode , tv.stock , tv.inQty , tv.outQty , (tv.outQty-tv.stock-tv.inQty) errQty , b.pesticideName , b.formCode , b.contents, ",
+            " b.domManufName , b.domManufId from ",
+            " (select  t.barcode , ",
+            " (select sum(stock) from stat_barcode_area a where a.barcode = t.barcode and a.yymm = t.yymm   ) stock,",
+            " t.inQty , t.outQty ",
+            " from (  select barcode , min(yymm) yymm , sum(isnull(inqty,0)) inqty , sum(isnull(outQty,0)) outQty ",
+            " from stat_barcode_area ",
+            " where 1=1 ${>=,yymm,int,dp1}${<=,yymm,int,dp2}${=,cityId,string,cityid} ",
+            " group by barcode ) t) tv left join barcode_view b on (tv.barcode=b.barcode)  ",
+            " where (tv.outQty -tv.stock-tv.inQty) >${@allow} "
+        ],
+        "$orderby": "errQty desc"
+    },
+    "detail": {
+        "$act": "rows",
+        "$cmd": [
+            " select a.* , b.cName , b.oldId , b.newId , (  isnull(a.outQty,0) -isnull(a.inQty,0) - a.stock)  errQty , b.cityId from ",
+            " ( select baphiqId , sum(stock) stock , sum(inQty) inQty , sum(outQty)  outQty from stat_store_barcode ",
+            " where barcode = ${barcode,string} ",
+            " group by baphiqId) a  join psRefStore b on (a.baphiqId = b.baphiqId) ",
+            " where 1=1 ${=,cityId,string,cityid}"
+        ],
+        "$orderby": "errQty desc"
+    },
+    "barcode": {
+        "$act": "row",
+        "$cmd": [
+            " select * from barcode_view where barcode = ${barcode,string} "
+        ]
+    },
+    "export": {
+        "$rem": "",
+        "$act": "rows",
+        "$ref_cmd": "query",
+        "$ref_orderby": "query",
+        "$before": "e_i,e_barcode,domManuf,formCode",
+        "$fields": "sid,barcode,pesticideName,formCode,contents,domManuf,stock,inQty,outQty,errQty"
+    },
+    "export_query": {
+        "$rem": "",
+        "$rem_style": "row,col , default row",
+        "style": "col",
+        "$act": "rows",
+        "$ref_cmd": "query_barcode",
+        "$before": "gen,e_form,e_makedt,e_makeid,e_qty1",
+        "$fields": "gen,pesticideName,form,contents,barcode,makedt,makeid,domManufName,domManufId,qty1"
+    }
+}

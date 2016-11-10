@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hyweb.gip.dao.CodeRefMapper" >
+  <resultMap id="BaseResultMap" type="hyweb.gip.pojo.mybatis.table.CodeRef" >
+    <id column="seq" property="seq" jdbcType="INTEGER" />
+    <result column="refId" property="refid" jdbcType="NVARCHAR" />
+    <result column="refValue" property="refvalue" jdbcType="NVARCHAR" />
+    <result column="subCodeValue" property="subcodevalue" jdbcType="NVARCHAR" />
+    <result column="subCodeShow" property="subcodeshow" jdbcType="NVARCHAR" />
+    <result column="subCodeSort" property="subcodesort" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    seq, refId, refValue, subCodeValue, subCodeShow, subCodeSort
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from BaphiqCodeRef
+    where seq = #{seq,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from BaphiqCodeRef
+    where seq = #{seq,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="hyweb.gip.pojo.mybatis.table.CodeRef" >
+    insert into BaphiqCodeRef (refId, refValue, subCodeValue, subCodeShow, subCodeSort)
+    values (#{refid,jdbcType=NVARCHAR}, #{refvalue,jdbcType=NVARCHAR}, #{subcodevalue,jdbcType=NVARCHAR}, 
+    		#{subcodeshow,jdbcType=NVARCHAR}, #{subcodesort,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="hyweb.gip.pojo.mybatis.table.CodeRef" >
+    update BaphiqCodeRef
+    set refId = #{refid,jdbcType=NVARCHAR},
+      refValue = #{refvalue,jdbcType=NVARCHAR},
+      subCodeValue = #{subcodevalue,jdbcType=NVARCHAR},
+      subCodeShow = #{subcodeshow,jdbcType=NVARCHAR},
+      subCodeSort = #{subcodesort,jdbcType=INTEGER}
+    where seq = #{seq,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BaphiqCodeRef
+  </select>
+  <select id="getById" resultMap="BaseResultMap" parameterType="map">
+    select 
+    <include refid="Base_Column_List" />
+    from BaphiqCodeRef
+    where refId = #{refid,jdbcType=NVARCHAR}
+    and refValue = #{refvalue,jdbcType=NVARCHAR}  
+  </select>
+</mapper>

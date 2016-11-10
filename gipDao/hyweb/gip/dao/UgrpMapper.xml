@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hyweb.gip.dao.UgrpMapper" >
+  <resultMap id="BaseResultMap" type="hyweb.gip.pojo.mybatis.table.Ugrp" >
+    <id column="ugrpId" property="ugrpid" jdbcType="INTEGER" />
+    <result column="ugrpName" property="ugrpname" jdbcType="NVARCHAR" />
+    <result column="remark" property="remark" jdbcType="NVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ugrpId, ugrpName, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from BaphiqUgrp
+    where ugrpId = #{ugrpid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from BaphiqUgrp
+    where ugrpId = #{ugrpid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="hyweb.gip.pojo.mybatis.table.Ugrp" 
+  		  useGeneratedKeys="true" keyProperty="ugrpid">
+    insert into BaphiqUgrp (ugrpName, remark
+      )
+    values (#{ugrpname,jdbcType=NVARCHAR}, #{remark,jdbcType=NVARCHAR}
+      )
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="hyweb.gip.pojo.mybatis.table.Ugrp" >
+    update BaphiqUgrp
+    set ugrpName = #{ugrpname,jdbcType=NVARCHAR},
+      remark = #{remark,jdbcType=NVARCHAR}
+    where ugrpId = #{ugrpid,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+    from BaphiqUgrp	
+  </select>
+  <select id="list" resultMap="BaseResultMap">
+  	select * from (
+		select row_number() over (order by ugrpid asc) as row_num, 
+		<include refid="Base_Column_List" /> 
+		from BaphiqUgrp 
+	) as tb 
+	where row_num between ((#{page} - 1) * #{showNum} + 1) and (#{page}*#{showNum}) 
+  </select>
+  <select id="countAll" resultType="int">
+    select count(*) 
+    from BaphiqUgrp 
+  </select>
+    <select id="selectByUser" resultMap="BaseResultMap" parameterType="java.lang.String" >
+     select 
+    <include refid="Base_Column_List" />
+    from BaphiqUgrp	
+    where ugrpid in (select * from f_split((select ugrpid from Baphiqinfouser where userid=#{userid,jdbcType=NVARCHAR}),','))
+  </select>
+</mapper>

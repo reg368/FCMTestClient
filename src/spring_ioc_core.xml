@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+	
+	<!--靜態化ApplicationContext-->
+	<bean id="springApplicationKeeper" class="hyweb.util.SpringLifeCycle" />
+	<bean id="defaultLoginModel" class="hyweb.gip.model.login.impl.DefaultLoginModel"/>
+	<bean id="encryptHandleImpl" class="hyweb.gip.model.encrypt.impl.EncryptHandleImpl"/>	
+	<bean id="UgrpServiceImpl" class="hyweb.gip.dao.service.impl.UgrpServiceImpl"/>
+	<bean id="UgrpApServiceImpl" class="hyweb.gip.dao.service.impl.UgrpApServiceImpl"/>
+	<bean id="InfoUserServiceImpl" class="hyweb.gip.dao.service.impl.InfoUserServiceImpl"/>
+	<bean id="InfoUserLoginServiceImpl" class="hyweb.gip.dao.service.impl.InfoUserLoginServiceImpl"/>
+	<bean id="ApCatServiceImpl" class="hyweb.gip.dao.service.impl.ApCatServiceImpl"/>
+	<bean id="ApServiceImpl" class="hyweb.gip.dao.service.impl.ApServiceImpl"/>
+	<bean id="CodeMainServiceImpl" class="hyweb.gip.dao.service.impl.CodeMainServiceImpl"/>
+	<bean id="CodeRefServiceImpl" class="hyweb.gip.dao.service.impl.CodeRefServiceImpl"/>
+	<bean id="DeptServiceImpl" class="hyweb.gip.dao.service.impl.DeptServiceImpl"/>
+	<bean id="CodeMetaDefServiceImpl" class="hyweb.gip.dao.service.impl.CodeMetaDefServiceImpl"/>
+ 	<bean id="ImgCenterServiceImpl" class="hyweb.gip.dao.service.impl.ImgCenterServiceImpl"/>
+ 	<bean id="FileCenterServiceImpl" class="hyweb.gip.dao.service.impl.FileCenterServiceImpl"/>
+ 	<bean id="DataFileServiceImpl" class="hyweb.gip.dao.service.impl.DataFileServiceImpl"/>
+ 	<bean id="DataImgServiceImpl" class="hyweb.gip.dao.service.impl.DataImgServiceImpl"/>
+ 	<bean id="SeqServiceImpl" class="hyweb.gip.dao.service.impl.SeqServiceImpl"/>
+ 	<bean id="TreeNodeServiceImpl" class="hyweb.gip.dao.service.impl.TreeNodeServiceImpl"/>	
+ 	<bean id="TreeServiceImpl" class="hyweb.gip.dao.service.impl.TreeServiceImpl"/>	
+</beans>

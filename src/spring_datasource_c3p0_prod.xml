@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis="http://www.mybatis.org/schema/mybatis"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/tx 
+			http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">  
+    <property name="driverClass" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+		<property name="jdbcUrl" value="jdbc:sqlserver://172.17.0.232:1433;DatabaseName=BAPHIQ" />
+		<property name="user" value="baphiq" />
+		<property name="password" value="kuS*3rUd" />
+		<!-- 初始化時創建的連接數，應在minPoolSize與maxPoolSize之間取值。默認為3 -->
+        <property name="initialPoolSize" value="10" />  
+        <!-- 連接池中保留的最小連接數。默認為15 -->
+        <property name="minPoolSize" value="5" />
+        <!-- 連接池中保留的最大連接數。默認為15 -->
+        <property name="maxPoolSize" value="100" />
+        <!-- 當連接池中的連接用完時，C3P0一次性創建新連接的數目 -->
+        <property name="acquireIncrement" value="5" />  
+        <!-- 最大空閒時間，超過空閒時間的連接將被丟棄。為0或負數則永不丟棄。默認為0 -->
+        <property name="maxIdleTime" value="10" />
+        <!-- JDBC的標準參數，用以控制數據源內加載的PreparedStatement數量。但由於預緩存的Statement屬於單個Connection而不是整個連接池。 -->
+        <property name="maxStatements" value="0" />
+        <!-- Seconds, effectively a time to live. A Connection older than maxConnectionAge will be destroyed and purged from the pool. -->
+        <property name="maxConnectionAge" value="120" />      
+        <!-- 隔多少秒檢查所有連接池中的空閒連接，默認為0表示不檢查 -->
+        <property name="idleConnectionTestPeriod" value="300" />
+        <!-- seconds to wait after a large spike in connections to cull pool back down to min size -->
+        <!-- <property name="maxIdleTimeExcessConnections" value="299" /> 與unreturnedConnectionTimeout衝突，暫時移除 -->
+        <!-- ms to wait for a connection when the pool is exhausted -->
+        <property name="checkoutTimeout" value="60000" />
+        <!-- attempts to acquire a new db connection before giving up -->
+        <property name="acquireRetryAttempts" value="5" />
+        <property name="preferredTestQuery" value="select 1" />
+         <!-- 強制在設定的時間到達後回收Connection，所以必須小心設置，單位為秒 -->
+        <property name="unreturnedConnectionTimeout" value="600" />
+        <!-- 當所有被getConnection出去的連接，unreturnedConnectionTimeout時間到的時候，就會打印出信息 -->
+        <property name="debugUnreturnedConnectionStackTraces" value="true" />
+    </bean>
+</beans>

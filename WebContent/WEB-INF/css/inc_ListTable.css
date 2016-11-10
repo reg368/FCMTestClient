@@ -1,0 +1,169 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* ------------------------------------------------------------- 表格條列 ListTable th在上面 */
+.ListTable {
+	width: 95%;
+	border-collapse: collapse;
+	font-family: Arial, Helvetica, sans-serif;
+	clear: both;
+	padding-left: 15px;
+	margin: 0px 0px 10px;
+}
+.ListTable table {
+	width: 100%;
+	font-size: 13px;
+	line-height: 160%;
+	border-collapse:collapse;
+	border-top: 3px solid #CFCFCF;
+	border-bottom: 2px solid #CFCFCF;
+	margin-bottom: 3px;
+	border-right-width: 2px;
+	border-left-width: 2px;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-right-color: #CFCFCF;
+	border-left-color: #CFCFCF;
+}
+.ListTable th {
+	font-weight: normal;
+	padding: 5px 5px 3px;
+	white-space: nowrap;
+	font-size: 13px;
+	line-height: 16px;
+	color: #FFFFFF;
+	text-align: center;
+	background: #939393;
+	border: 1px solid #CCCCCC;
+}
+.ListTable td {
+	padding: 4px 5px 3px;
+	text-align: center;
+	border: 1px solid #CFCFCF;
+}
+.ListTable td.aLeft {
+	text-align: left;
+}
+.ListTable td.aRight {
+	text-align: right;
+}
+.ListTable td a img {
+	border: none;
+}
+.ListTable td a {
+	text-decoration: none;
+}
+/* ------------------------------------------------------------- 表格條列 ListTable th在左邊*/
+.ListTable2 {
+	width: 95%;
+	border-collapse: collapse;
+	font-family: Arial, Helvetica, sans-serif;
+	clear: both;
+	padding-left: 15px;
+	margin: 0px 0px 10px;
+}
+.ListTable2 table {
+	width: 100%;
+	font-size: 13px;
+	line-height: 160%;
+	border-collapse:collapse;
+	margin-bottom: 3px;
+	border: 2px solid #CFCFCF;
+}
+.ListTable2 th {
+	font-weight: normal;
+	padding: 5px 5px 2px;
+	white-space: nowrap;
+	font-size: 13px;
+	line-height: 16px;
+	color: #FFFFFF;
+	text-align: right;
+	background: #666666;
+	border: 1px solid #E3E3E3;
+}
+.ListTable2 td {
+	border-top: 1px solid #CFCFCF;
+	padding: 4px 5px 1px;
+}
+.ListTable2 td.aLeft {
+	text-align: left;
+}
+.ListTable2 td.aRight {
+	text-align: right;
+}
+.ListTable2 td a img {
+	border: none;
+}
+.ListTable2 td a {
+	text-decoration: none;
+}
+.ListTable2 ul {
+	margin: 5px 0px 5px 20px;	
+}
+.ListTable2 li {
+	margin-bottom: 5px;
+}
+.ListTable2 li img{
+	margin-left: 8px;
+}
+/* ---------------------------------------------------------說明頁 */
+.explain{
+	color: #666666;
+	margin: 10px 0px 10px 15px;
+	line-height: 140%;
+	font-size: 13px;
+	border: 2px dotted #BEBEBE;
+	width: 92%;
+	padding: 10px;
+}
+.explain h4{
+	background-image: url(../images/link.gif);
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	height: 17px;
+	color: #006666;
+	font-size: 15px;
+	padding-top: 3px;
+}
+.explain ul{
+	margin: 0px 0px 0px 20px;
+}
+html>body .explain ul{
+	margin: 0px 0px 0px 0px;
+}
+.explain li{
+	background-image: url(../images/icon07.gif);
+	background-repeat: no-repeat;
+	list-style-type: none;
+	background-position: 0px 5px;
+	padding-left: 10px;
+	margin-bottom: 7px;
+}
+.explain li a{
+	color: #009999;
+	text-decoration: underline;
+}
+.explain li a:hover{
+	color: #993300;
+	text-decoration: underline;
+}
+
+/*---------------------------------Amy Add-------------------------------------*/
+.message{
+	background-image: url(../images/message_bg.jpg);
+	background-repeat: repeat;
+	background-position: left top;
+	border: 0px;
+	font-size: 15px;
+	color: #333333;
+	padding: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 5px;
+	width: 622px;
+}
+.message caption{
+	font-size: 18px;
+	color: #333333;
+	font-weight: bold;
+}

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hyweb.gip.dao.TreeMapper" >
+  <resultMap id="BaseResultMap" type="hyweb.gip.pojo.mybatis.table.Tree" >
+    <id column="tId" property="tid" jdbcType="INTEGER" />
+    <result column="tName" property="tname" jdbcType="NVARCHAR" />
+    <result column="tDesc" property="tdesc" jdbcType="NVARCHAR" />
+    <result column="tIsPublic" property="tispublic" jdbcType="NVARCHAR" />
+    <result column="tStyle" property="tstyle" jdbcType="NVARCHAR" />
+    <result column="tKeyword" property="tkeyword" jdbcType="NVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tId, tName, tDesc, tIsPublic, tStyle, tKeyword
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from Tree
+    where tId = #{tid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from Tree
+    where tId = #{tid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="hyweb.gip.pojo.mybatis.table.Tree" >
+    insert into Tree (tName, tDesc, tIsPublic, tStyle, tKeyword)
+    values (#{tname,jdbcType=NVARCHAR}, 
+      #{tdesc,jdbcType=NVARCHAR}, #{tispublic,jdbcType=NVARCHAR}, #{tstyle,jdbcType=NVARCHAR},
+      #{tkeyword,jdbcType=NVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="hyweb.gip.pojo.mybatis.table.Tree" >
+    update Tree
+    set tName = #{tname,jdbcType=NVARCHAR},
+      tDesc = #{tdesc,jdbcType=NVARCHAR},
+      tIsPublic = #{tispublic,jdbcType=NVARCHAR},
+      tStyle = #{tstyle,jdbcType=NVARCHAR},
+      tKeyword = #{tkeyword,jdbcType=NVARCHAR}
+    where tId = #{tid,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Tree
+  </select>
+  <select id="selectByPrimaryKeyList" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Tree
+    where tId IN 
+    <foreach item="item" index="index" collection="tIds"
+       open="(" separator="," close=")">
+         #{item}
+     </foreach>
+  </select>
+</mapper>

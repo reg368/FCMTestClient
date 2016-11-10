@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>後台公用設定檔</comment>
+	<entry key="WEB_DOMAIN">localhost</entry>
+	<entry key="XD_DOMAIN">localhost</entry>
+	<entry key="ADMIN_DOMAIN">localhost:9880</entry><!--  這個要設定 -->
+	<entry key="MVEL_DIR">${DIR_WEB-INF}${/}mvel</entry>
+	<entry key="META_DIR">${DIR_WEB-INF}${/}meta</entry>
+	<!-- <entry key="XPATH_EVENT">/htPage/htEvent</entry>
+	<entry key="XPATH_XSL_NAME">/htPage/xslname</entry>
+	<entry key="XPATH_ADDSHOW_FIELD_LIST">/htPage/htForm/formModel/fieldList</entry>
+	<entry key="XPATH_ADDSHOW_ROW">/htPage/htForm/formModel/fieldList/row</entry>
+	<entry key="XPATH_ADDSHOW_FIELD">/htPage/htForm/formModel/fieldList/row/field</entry>
+	<entry key="XPATH_ADDSHOW_CODEID">/htPage/htForm/formModel/fieldList/row/field/default/codeId</entry>
+	<entry key="XPATH_ADDSHOW_VALUE">/htPage/htForm/formModel/fieldList/row/field/default/value</entry>
+	<entry key="XPATH_ADDSHOW_INPUTTYPE">/htPage/htForm/formModel/fieldList/row/field/inputType</entry>
+	<entry key="XPATH_ADDSHOW_PAGESPEC">/htPage/pageSpec</entry>
+	<entry key="XPATH_ADDSAVE_TABLENAME">/htPage/htForm/formModel/fieldList/tableName</entry>
+	<entry key="XPATH_LIST_SQL">/htPage/resultSet/sql</entry>
+	<entry key="XPATH_LIST_ROW">/htPage/resultSet/fieldList/row</entry>
+	<entry key="XPATH_LIST_FROM">/htPage/resultSet/sql/from</entry>
+	<entry key="XPATH_LIST_WHERE">/htPage/resultSet/sql/where</entry>
+	<entry key="XPATH_LIST_ORDER">/htPage/resultSet/sql/order</entry>
+	<entry key="XPATH_LIST_PAGESPEC">/htPage/pageSpec</entry>
+	<entry key="XPATH_LIST_FILTER">/htPage/pageSpec/filter/fieldList/field</entry>
+	<entry key="XPATH_LIST_FILTER_NAME">/htPage/pageSpec/filter/fieldList/field/fieldName</entry>
+	<entry key="XPATH_LIST_QUERY_STRING">/htPage/pageSpec/queryString</entry>
+	<entry key="XPATH_LIST_PAGE_JUMP">/htPage/pageSpec/pageJump</entry>
+	<entry key="XPATH_PAGEFUNCTION">/htPage/pageSpec/pageFunction</entry>
+	<entry key="HYPATTERN_PROG_CODE">/htPage/htProgCode</entry>
+	<entry key="HYPATTERN_GEN_PATTERN">/htPage/htGenPattern</entry> -->
+	<entry key="HYPATTERN_XML">${DIR_WEB-INF}/xml/</entry>
+	<entry key="HYPATTERN_XSL">${DIR_WEB-INF}/xsl/</entry>
+	<entry key="HYPATTERN_PAGE_XML">http://${XD_DOMAIN}/xd/xml/page/</entry>
+	<entry key="HYPATTERN_XSL">http://${ADMIN_DOMAIN}/admin/app/xsl/</entry>
+	<entry key="HYPATTERN_PAGE_XD_SERVER">http://${XD_DOMAIN}/xd/</entry>
+	<entry key="HYPATTERN_PAGE_WEB_SERVER">http://${WEB_DOMAIN}/</entry>
+	<entry key="HYPATTERN_PKSEQ">___</entry>
+	<entry key="SHOW_DEBUG">true</entry>
+	<entry key="SITE_NAME">admin</entry>
+	<entry key="QUARTZ">${_QUARTZ}</entry>
+	<entry key="IMAGE_DIR">${catalina.home}/resources/hycmsImg/</entry>
+	<entry key="FILE_DIR">${catalina.home}/resources/hycmsFile/</entry>
+	<entry key="XML_DIR">${catalina.home}/resources/SiteXML/</entry>
+	<entry key="XML_DIR2">${catalina.home}/resources/SiteXML/</entry><!-- for佳淇用 -->
+	<entry key="BROWSER_IMAGE_TIME_OUT_SEC">86400</entry>
+	<entry key="DEPT_ROOT_SEQ">1</entry>
+	<entry key="po_company">文化,行銷,出版</entry>
+	<entry key="LAYOUT_STYLE_XML_PATH">${DIR_WEB-INF}/xml/layout/</entry>
+	<entry key="MENU_LEVEL">5</entry>
+	<entry key="COIN_SERVER">http://${ADMIN_DOMAIN}</entry>
+	
+	<entry key="HISTORY_REPORT">${DIR_WEB-INF}${/}report_template${/}history_statistics.xls</entry>
+</properties>

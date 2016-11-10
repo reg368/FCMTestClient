@@ -1,0 +1,257 @@
+﻿@charset "utf-8";
+/* CSS Document */
+body{
+	font-size:0.8em;
+	font-family: "微軟正黑體";
+}
+
+img {behavior:url(ie-png-fix.htc)}
+
+a{ color:#960; text-decoration:none;}
+a:hover{ color:#C30;}
+
+/*--------------------------input textarea select */
+input , textarea , select{	
+	vertical-align:middle;
+	margin:0 0 2px;
+	color: #555;
+}
+textarea {
+	width: 75%;
+	height: auto;
+	font-size:1em;
+	line-height: 1.65em;
+	border: 1px solid #ccc;
+	margin: 0 0 2px;
+	color:#999;
+	padding:2px;
+	font-family:Verdana, Geneva, sans-serif;
+}
+input.text {
+	line-height: 20px;
+	font-size: 1em;
+	padding: 2px 2px 5px 2px;
+	margin: 0;
+	color: #83682f;
+	width:75%;
+	border: 1px solid #ccc;
+	background: #FFFFFF;
+	font-family:Verdana, Geneva, sans-serif;
+}
+input.textReadonly {
+	line-height: 20px;
+	font-size: 1em;
+	padding: 2px 2px 5px 2px;
+	margin: 0;
+	color: #999;
+	width: auto;
+	border: 1px solid #ccc;
+	background:#efefef;
+	font-family:Verdana, Geneva, sans-serif;
+}
+input + img , select + img {
+	vertical-align: middle;
+	border: none;
+}
+
+/*-----------------dept----*/
+hr{ border:1px solid #DDD;}
+.must {
+	color: #C00;
+	margin-right: 3px;
+}
+.dept{
+	color:#79beda;
+	margin:0 0 0 5px;
+	padding:0 3px 0;
+}
+.date{
+	color:#C60;
+	padding:0 0 0 5px;
+}
+.remark{ color:#888; text-align:left; margin:0 0 5px; }
+/*----------common button----*/
+.btn{
+	background: url(../images/btn_bg.gif) repeat-x 0px 0px;
+	padding:3px 5px 3px 5px;
+	color:#6d550d;
+	cursor:pointer;
+	border:1px solid #C1A053;
+}
+.btn:hover, .btn:active{ border:1px solid #C00; color:#C00;}
+.btn_submit{
+	background: url(../images/btn_submit.gif) no-repeat 0 0;	
+	border:0;
+	color:#FFF;
+	margin: 0 0 0 5px;
+	width:88px;
+	height:30px;
+	cursor:pointer;
+}
+.btn_submit:hover{	background: url(../images/btn_submit_active.gif) no-repeat 0 0;color:#772d04;	}
+
+.btn_reset {
+	background: url(../images/btn_reset.gif) no-repeat 0 0;
+	border:0;
+	color:#555;
+	margin: 0;
+	width:88px;
+	height:30px;
+	cursor:pointer;
+}
+.btn_cancel {
+	background: url(../images/btn_reset.gif) no-repeat 0 0;
+	border:0;
+	color:#97531b;
+	margin: 0;
+	width:88px;
+	height:30px;
+	cursor:pointer;
+}
+.btn_save {
+	background: url(../images/btn_save.gif) no-repeat 0 0;
+	border:0;
+	color:#444;
+	margin: 0;
+	width:221px;
+	height:31px;
+	cursor:pointer;
+}
+.btn_addmovie {
+	background: url(../images/btn_addmovie.gif) no-repeat 0 0;
+	border:0;
+	color: #c00;
+	margin: 0;
+	width:96px;
+	height:27px;
+	padding:0 0 0 36px;
+	cursor:pointer;
+}
+.btn_addpic {
+	background: url(../images/btn_addpic.gif) no-repeat 0 0;
+	border:0;
+	color: #c00;
+	margin: 0;
+	width:96px;
+	height:27px;
+	padding:0 0 0 36px;
+	cursor:pointer;
+}
+.popformTb .btn_submit{
+	background: url(../images/btn_submit2.gif) repeat-x 0 0;	
+	border:1px solid #a05f10;
+	color:#000;
+	font-weight: bold;
+	padding:3px 5px 2px 5px;
+	margin: 0 0 0 5px;
+	cursor:pointer;
+	width:auto;
+}
+.popformTb .btn_reset{
+	background: url(../images/btn_reset2.gif) repeat-x 0 0;	
+	border:1px solid #b1ac95;
+	color:#666;
+	width:auto;
+	font-weight: bold;
+	padding:3px 5px 2px 5px;
+	margin: 0 0 0 5px;
+	cursor:pointer;
+}
+/*-----------------tab---*/
+.listTb .tab, .formTb .tab, .formTb2 .tab{
+	clear:both;
+	text-align:center;
+}
+.listTb .tab ul, .formTb .tab ul, .formTb2 .tab ul{ margin:0 0 0px; clear:both; text-align:center; }
+.listTb .tab ul li, .formTb .tab ul li, .formTb2 .tab ul li{
+	display:inline-block;	
+	font-size:1.2em;
+	text-align:center;
+	overflow:hidden;
+	padding:0px 10px 0px 0;
+	background: url(../images/tab_libg1.jpg) no-repeat right 0px;	
+}
+.listTb .tab ul li a, .formTb .tab ul li a, .formTb2 .tab ul li a{ 
+	text-align:center; 
+	color:#88836d;
+	display:inline-block; 
+	padding:12px 0 16px 10px;
+	background: url(../images/tab_libg1.jpg) no-repeat left 0px;
+} 
+.listTb .tab ul li.here , .formTb .tab ul li.here, .formTb2 .tab ul li.here{
+	padding:0px 10px 0px 0;
+	background: url(../images/tab_libg2.jpg) no-repeat right 0px;
+}
+.listTb .tab ul li.here a, .formTb .tab ul li.here a, .formTb2 .tab ul li.here a{ 
+	color:#fff; 
+	font-weight:bold;
+	padding:12px 0 16px 10px;
+	background: url(../images/tab_libg2.jpg) no-repeat left 0px;
+}
+.listTb .tab ul li.here a:hover, .formTb .tab ul li.here a:hover, .formTb2 .tab ul li.here a:hover{ color: #fff;}
+.listTb .tab ul li a:hover, .formTb .tab ul .tab li a:hover, .formTb2 .tab li a:hover{ color: #C30; }
+
+
+
+/*--------------------表格欄位預設位置 序號、時間----------------*/
+table th.date{  margin:0px;}
+table td.date{ text-align:center; white-space:nowrap; }
+table th.number{text-align:center;  }
+table td.number{ text-align:center; }
+
+
+/*--------------------表格欄位預設位置 左中右----------------*/
+.aRight, th.aRight, td.aRight{ text-align:right;}
+.aLeft, th.aLeft, td.aLeft{ text-align:left;}
+.aCenter, th.aCenter, td.aCenter{ text-align:center;}
+
+/*---------------page ------------*/
+.page {
+	margin:2px 5px 0;
+	float:right;
+}
+.page ul { margin:0; padding:0;}
+.page ul li {
+	display: inline;
+	margin: 0px 0px 0;
+	padding:0 4px ;
+	color: #999;
+}
+.page ul li a{ color:#999; padding:0 0 1px; line-height:1.8em;text-decoration:underline;}
+.page ul li a:hover { color:#C00; }
+.page ul li img{ width:16px; height:16px; vertical-align:middle;} 
+
+.page ul li.here{ color:#FFF; background-color:#C60; } 
+.page ul li.prev{
+	background: url(../images/prev.gif) no-repeat 0px 0px; padding:0;}
+.page ul li.prev:hover{
+	background: url(../images/prev_hover.gif) no-repeat 0px 0px;}
+	
+.page ul li.next {
+	background: url(../images/next.gif) no-repeat 0px 0px;padding:0;}
+.page ul li.next:hover {
+	background: url(../images/next_hover.gif) no-repeat 0px 0px;}
+	
+.page ul li.first{
+	background: url(../images/first.gif) no-repeat 0px 0px;padding:0;}
+.page ul li.first:hover{
+	background: url(../images/first_hover.gif) no-repeat 0px 0px;}
+	
+.page ul li.last {
+	background: url(../images/last.gif) no-repeat 0px 0px;padding:0;}
+.page ul li.last:hover {
+	background: url(../images/last_hover.gif) no-repeat 0px 0px;}
+
+
+
+
+/*---------------navfunction*/
+.copyright{
+	margin: 20px auto 10px auto;
+	padding:20px 0 0;
+	clear: both;
+	display: block;
+	text-align: center;
+	color: #666;
+	border-top:1px solid #ccc;
+}

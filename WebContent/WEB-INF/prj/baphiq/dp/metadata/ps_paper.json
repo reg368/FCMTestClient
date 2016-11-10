@@ -1,0 +1,55 @@
+{
+    "id": "psPaper",
+    "name": "psPaper",
+    "lable": "紙本登錄共用metadata",
+    "query": {
+        "$act": "rows",
+        "$cmd": [
+            "select a.baphiqId,a.oldId , a.newId , a.cName , a.cityIdText, a.cityId, '進貨' as dttext , isnull(b.dt,2) as dt, b.qty , b.p ",
+            "from psRefStore a left join  psSalePaperView b on (a.baphiqId=b.baphiqId)  ",
+            "where a.stype=0 ${=,cityId,string}",
+            "${or}${$all,newId,string,cid}${$all,oldId,string,cid}${$all,cName,string,cid}${end}"
+        ],
+        "$orderby": "baphiqid"
+    },
+    
+    "query_v1": {
+        "$rem":"20160321取消進貨統計",
+        "$act": "rows",
+        "$cmd": [
+            "select * from ( ",
+            "select a.baphiqId, a.oldId , a.newId , a.cName , a.cityIdText, a.cityId,  '進貨'  as dttext , isnull(b.dt,1) as dt, ",
+            "isnull(b.u1,0) u1, isnull(b.u2,0) u2, isnull(b.u3,0) u3, isnull(b.p1,0) p1, isnull(b.p2,0) p2, isnull(b.p3,0) p3 ",
+            "from psRefStore a left join  psPurchasePaperView b on (a.baphiqId=b.baphiqId) ",
+            "union ",
+            "select a.baphiqId, a.oldId , a.newId , a.cName , a.cityIdText, a.cityId, '出貨' as dttext , isnull(b.dt,2) as dt,",
+            "isnull(b.u1,0) u1, isnull(b.u2,0) u2, isnull(b.u3,0) u3, isnull(b.p1,0) p1, isnull(b.p2,0) p2, isnull(b.p3,0) p3 ",
+            "from psRefStore a left join  psSalePaperView b on (a.baphiqId=b.baphiqId) ) t ",
+            "where 1=1 ${=,cityId,string}",
+            "${or}${$all,newId,string,cid}${$all,oldId,string,cid}${$all,cName,string,cid}${end}"
+        ],
+        "$orderby": "baphiqid"
+    },
+    
+    "detail": {
+        "$act": "rows",
+        "$before":"",
+        "$cmd": [
+            "select baphiqId ,CAST(purchaseDt AS DATE) , ",
+            "sum(case when dt='1' then 1 else 0 end) incount , ",
+            "sum(case when dt='2' then 1 else 0 end) outcount , ",
+            "max(ct) uploadDt ",
+            "from (select baphiqId ,'2' dt , purchaseDt , ct from psSaleSS ",
+            "union all ",
+            "select baphiqId ,'2' dt , purchaseDt , ct from psSaleSP ",
+            "union all ",
+            "select baphiqId ,'1' dt , purchaseDt , ct from psSaleBS) t ",
+            "where baphiqId=${baphiqId,string} and purchaseDt > ${pd1,date} and purchaseDt<=${pd2,date} ",
+            "group by baphiqId , CAST(purchaseDt AS DATE) ",
+            "order by baphiqId, CAST(purchaseDt AS DATE)"
+        ],
+        "$after":""
+    }
+
+
+}

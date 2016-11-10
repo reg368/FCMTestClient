@@ -1,0 +1,38 @@
+{
+    "filter.pull": {
+        "suffix": null,
+        "dest.host": "http://10.10.5.125:9780",
+        "dest.context": "BAPHIQ",
+        "path.cache": "__cache__"
+    },
+    "sys": {
+        "fmt1": "yyyy/MM/dd HH:mm"
+    },
+    "msg.ol": {
+        "subject": "開始上課",
+        "phone": "0912123456"
+    },
+    "sms": {
+        "@url": "http://smexpress.mitake.com.tw:9600/SmSendGet.asp",
+        "@enc": "Big5",
+        "username": "16541333B",
+        "password": "1qaz2wsx",
+        "dstaddr": "${OU_PHONE}",
+        "encoding": "Big5",
+        "DestName": "${OU_NAME}_${OU_CODE}",
+        "smbody": "${content}",
+        "@fields": [
+            "username", "password", "dstaddr", "encoding", "DestName", "smbody"
+        ]
+    },
+    "filter.encoding": {
+        "enc": "UTF-8",
+        "isShowParams": true,
+        "isSSL": false,
+        "sslPort": 7443,
+        "exclude": ["/public", "/services"]
+    }, 
+    
+    "scope" :"dev"
+  
+}

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hyweb.gip.dao.DeptMapper" >
+  <resultMap id="BaseResultMap" type="hyweb.gip.pojo.mybatis.table.Dept" >
+    <id column="deptSeq" property="deptseq" jdbcType="INTEGER" />
+    <result column="deptId" property="deptid" jdbcType="NVARCHAR" />
+    <result column="deptName" property="deptname" jdbcType="NVARCHAR" />
+    <result column="deptEName" property="deptename" jdbcType="NVARCHAR" />
+    <result column="deptInUse" property="deptinuse" jdbcType="CHAR" />
+    <result column="deptHierarchyCode" property="depthierarchycode" jdbcType="VARCHAR" />
+    <result column="deptSort" property="deptsort" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    deptSeq, deptId, deptName, deptEName, deptInUse, deptHierarchyCode, deptSort
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from BaphiqDept
+    where deptSeq = #{deptseq,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from BaphiqDept
+    where deptSeq = #{deptseq,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="hyweb.gip.pojo.mybatis.table.Dept" >
+    insert into BaphiqDept (deptSeq, deptId, deptName, 
+      deptEName, deptInUse, deptHierarchyCode, 
+      deptSort)
+    values (#{deptseq,jdbcType=INTEGER}, #{deptid,jdbcType=NVARCHAR}, #{deptname,jdbcType=NVARCHAR}, 
+      #{deptename,jdbcType=NVARCHAR}, #{deptinuse,jdbcType=CHAR}, #{depthierarchycode,jdbcType=VARCHAR}, 
+      #{deptsort,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="hyweb.gip.pojo.mybatis.table.Dept" >
+    update BaphiqDept
+    set deptId = #{deptid,jdbcType=NVARCHAR},
+      deptName = #{deptname,jdbcType=NVARCHAR},
+      deptEName = #{deptename,jdbcType=NVARCHAR},
+      deptInUse = #{deptinuse,jdbcType=CHAR},
+      deptHierarchyCode = #{depthierarchycode,jdbcType=VARCHAR},
+      deptSort = #{deptsort,jdbcType=INTEGER}
+    where deptSeq = #{deptseq,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BaphiqDept order by deptSort
+  </select>
+  <select id="selectParent" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+	<include refid="Base_Column_List" /> 
+    from Baphiqdept 
+    where depthierarchycode = (
+    select substring(depthierarchycode, 0, dbo.lastindex(depthierarchycode, '.')) 
+    from Baphiqdept 
+    where deptseq = #{deptseq,jdbcType=INTEGER})
+  </select>
+  <select id="list" resultMap="BaseResultMap" parameterType="map">
+  	select * from (
+		select row_number() over (order by deptSort) as row_num, 
+		<include refid="Base_Column_List" /> 
+		from Baphiqdept 
+		 where deptSeq in (select * from dbo.fun_getBaphiqDeptSeq(#{deptseq}))
+	) as tb 
+	where row_num between ((#{page} - 1) * #{showNum} + 1) and (#{page}*#{showNum}) 
+  </select>
+  <select id="countAll" resultType="int">
+    select count(*) 
+    from Baphiqdept 
+  </select>
+  <select id="selectAllChild" resultMap="BaseResultMap" parameterType="map">
+  	select 
+  	<include refid="Base_Column_List" /> 
+  	from Baphiqdept 
+  	where deptHierarchyCode like ${depthierarchycode} or deptHierarchyCode = ${depthierarchycode1} 
+  	 or deptHierarchyCode like ${depthierarchycode2} or deptHierarchyCode like ${depthierarchycode3}
+  </select>
+    <select id="selectAllByTreeAndDept" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from BaphiqDept 
+    where deptSeq in (select * from dbo.fun_getBaphiqDeptSeq(#{deptseq,jdbcType=INTEGER}))
+    order by deptSort
+  </select>
+  <select id="countAllByTreeAndDept" resultType="int" parameterType="java.lang.Integer">
+    select count(*) 
+    from Baphiqdept 
+    where deptSeq in (select * from dbo.fun_getBaphiqDeptSeq(#{deptseq})) 
+  </select>
+  
+  <select id="getById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BaphiqDept
+    where deptseq = #{deptseq,jdbcType=INTEGER}
+  </select>
+</mapper>

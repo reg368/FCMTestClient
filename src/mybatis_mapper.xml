@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="true" /><!--使用一級暫存 -->
+		<setting name="lazyLoadingEnabled" value="true" /><!--延遲載入Mapper-->
+		<setting name="aggressiveLazyLoading" value="true" /><!--不用Reflect-->
+	</settings>
+	<typeAliases>
+		<package name="hyweb.gip.pojo.mybatis.table" />
+	</typeAliases>
+	<mappers>
+		<package name="hyweb.gip.dao" />
+	</mappers>
+</configuration>

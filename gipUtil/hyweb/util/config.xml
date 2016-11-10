@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>共用設定檔</comment>
+	<entry key="XD_DOMAIN">www.businesstoday.hyweb.com.tw</entry>
+	<entry key="WEB_DOMAIN">www.businesstoday.hyweb.com.tw</entry>
+	<entry key="ADMIN_DOMAIN">www.businesstoday.hyweb.com.tw</entry>
+	<entry key="HYPATTERN_PAGE_XML">http://${XD_DOMAIN}/xd/xml/page/</entry>
+	<entry key="SITE_XD">http://${XD_DOMAIN}/xd/</entry>
+	<entry key="SITE_WEB">http://${WEB_DOMAIN}/</entry>
+	<entry key="SITE_ADMIN">http://${ADMIN_DOMAIN}/admin/</entry>
+	<entry key="SHOW_DEBUG">true</entry>
+	<entry key="ADMIN_IP">211.20.93.90;127.0.0.1;10.10.4.61;0:0:0:0:0:0:0:1</entry>
+</properties>

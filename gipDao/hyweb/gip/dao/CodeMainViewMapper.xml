@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hyweb.gip.dao.CodeMainViewMapper" >
+  <resultMap id="BaseResultMap" type="hyweb.gip.pojo.mybatis.table.CodeMainView" >
+    <result column="codeSeq" property="codeseq" jdbcType="INTEGER" />
+    <result column="codeId" property="codeid" jdbcType="NVARCHAR" />
+    <result column="codeValue" property="codevalue" jdbcType="NVARCHAR" />
+    <result column="codeShow" property="codeshow" jdbcType="NVARCHAR" />
+    <result column="codeSort" property="codesort" jdbcType="INTEGER" />
+    <result column="showValue" property="showvalue" jdbcType="NVARCHAR" />
+  </resultMap>
+    <sql id="Base_Column_List" >
+    codeSeq, codeId, codeValue, codeShow, codeSort, showValue 
+  </sql>
+  <select id="selectByCodeId" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select
+  	<include refid="Base_Column_List" />
+  	from CodeMainView 
+  	where codeid = #{codeid,jdbcType=NVARCHAR} order by codeSort
+  </select>
+</mapper>

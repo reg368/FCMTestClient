@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="true" /><!--使用一級暫存 -->
+		<setting name="lazyLoadingEnabled" value="true" /><!--延遲載入Mapper-->
+		<setting name="aggressiveLazyLoading" value="true" /><!--不用Reflect-->
+	</settings>
+	<typeAliases>
+		<typeAlias type="hyweb.gip.pojo.mybatis.table.Ugrp" alias="Ugrp"/>
+		<typeAlias type="hyweb.gip.pojo.mybatis.table.UgrpAp" alias="UgrpAp"/>
+		<typeAlias type="hyweb.gip.pojo.mybatis.table.Ap" alias="Ap"/>
+		<typeAlias type="hyweb.gip.pojo.mybatis.table.ApCat" alias="ApCat"/>
+		<typeAlias type="hyweb.gip.pojo.mybatis.table.CodeMain" alias="CodeMain"/>
+		<typeAlias type="hyweb.gip.pojo.mybatis.table.CodeRef" alias="CodeRef"/>
+		<typeAlias type="hyweb.gip.pojo.mybatis.table.Dept" alias="Dept"/>
+		<typeAlias type="hyweb.gip.pojo.mybatis.table.InfoUserLogin" alias="InfoUserLogin"/>
+		<typeAlias type="hyweb.gip.pojo.mybatis.table.CodeMetaDef" alias="CodeMetaDef"/>
+		<typeAlias type="hyweb.gip.pojo.mybatis.table.Tree" alias="Tree"/>
+		<typeAlias type="hyweb.gip.pojo.mybatis.table.InfoUser" alias="InfoUser"/>
+		<typeAlias type="hyweb.gip.pojo.mybatis.table.XdmpList" alias="XdmpList"/>
+		<typeAlias type="hyweb.gip.pojo.mybatis.table.Member" alias="Member"/>
+		<typeAlias type="hyweb.gip.pojo.mybatis.table.TestOrg" alias="TestOrg"/>
+	</typeAliases>
+	<mappers>
+		<mapper class="hyweb.gip.dao.XdmpListMapper"/>
+		<mapper class="hyweb.gip.dao.MemberMapper"/>
+		<mapper class="hyweb.gip.dao.TestOrgMapper"/>
+	</mappers>
+</configuration>

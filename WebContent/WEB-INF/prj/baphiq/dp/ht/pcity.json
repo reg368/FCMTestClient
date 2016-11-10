@@ -1,0 +1,11 @@
+{
+    "classId":"ht_rows",
+    "$rem": "資拓盤商縣市代碼(改用共用縣市代碼)",
+    "$cmd": [ 
+        "select cityId value, cityName label , *  from cityset_t"
+    ],
+    "name":"cityId",
+    "option" :[
+        {"value":"","label":"全部縣市"}
+    ]
+}

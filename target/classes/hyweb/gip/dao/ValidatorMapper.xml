@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hyweb.gip.dao.ValidatorMapper" >
+  <resultMap id="BaseResultMap" type="hyweb.gip.pojo.mybatis.view.Validatorz" >
+    <id column="tableName" property="tablename" jdbcType="NVARCHAR" />
+    <result column="tempName" property="tempname" jdbcType="NVARCHAR" />
+    <result column="tempColumn" property="tempcolumn" jdbcType="NVARCHAR" />
+  </resultMap>
+  <select id="selectColumn" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT t.name AS tempName, c.name AS tempColumn
+	FROM sys.tables AS t
+	INNER JOIN sys.columns c ON t.OBJECT_ID = c.OBJECT_ID 
+	WHERE t.name = #{tablename, jdbcType=NVARCHAR} 
+	AND is_nullable = 'false' 
+	AND is_identity = 'false'
+  </select>
+</mapper>
