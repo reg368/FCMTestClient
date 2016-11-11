@@ -2,6 +2,8 @@ package com.fcm.ctr;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Map;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,16 +14,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 
 @Controller
 @RequestMapping("/register")
 public class RegisterCtr {
 	
+	
 	 @RequestMapping(value="device",  produces="application/json; charset=utf-8",
 	            method = {RequestMethod.GET, RequestMethod.POST})
 	    public String appRegister(HttpServletRequest req,HttpServletResponse res) throws IOException{
+		 
+		 Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		 
 		 StringBuffer jb = new StringBuffer(); //jb : json body
 		 String line = null;
@@ -31,7 +35,16 @@ public class RegisterCtr {
 		      jb.append(line);
 		  } catch (Exception e) { /*report an error*/ }
 
-		  System.out.println("get : "+jb.toString());
+		  Map map = (Map) gson.fromJson(jb.toString(), Object.class);
+		  
+		  String key = (String)map.get("key");
+		  
+		  Map contentMap = (Map)map.get("content");  
+		  String packageName = (String)contentMap.get("packageName");
+		  String platform = (String)contentMap.get("platform");
+		  String token = (String)contentMap.get("token");
+		  
+		  
 		  
 		  
 		  return "index2";
