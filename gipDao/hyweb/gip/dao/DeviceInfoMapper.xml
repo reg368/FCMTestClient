@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hyweb.gip.dao.DeviceInfoMapper" >
+  <resultMap id="BaseResultMap" type="hyweb.gip.pojo.mybatis.table.DeviceInfo" >
+    <id column="seq" property="seq" jdbcType="INTEGER" />
+    <result column="token" property="token" jdbcType="VARCHAR" />
+    <result column="platform" property="platform" jdbcType="NVARCHAR" />
+    <result column="packageName" property="packageName" jdbcType="NVARCHAR" />
+    <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="updateDate" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="lastsendDate" property="lastsendDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    seq, token, platform, packageName, createDate, updateDate, lastsendDate
+  </sql>
+  <insert id="insert" parameterType="hyweb.gip.pojo.mybatis.table.DeviceInfo" >
+    insert into DeviceInfo (seq, token, platform, packageName)
+    values (deviceInfo_seq.nextVal, #{token,jdbcType=VARCHAR}, #{platform,jdbcType=NVARCHAR}, 
+      #{packageName,jdbcType=NVARCHAR}
+      )
+  </insert>
+</mapper>

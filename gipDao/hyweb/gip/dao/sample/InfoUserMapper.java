@@ -1,4 +1,4 @@
-package hyweb.gip.dao;
+package hyweb.gip.dao.sample;
 
 import java.util.LinkedList;
 

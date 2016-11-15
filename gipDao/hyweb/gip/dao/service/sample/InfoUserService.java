@@ -1,4 +1,4 @@
-package hyweb.gip.dao.service;
+package hyweb.gip.dao.service.sample;
 
 import hyweb.gip.pojo.mybatis.table.InfoUser;
 

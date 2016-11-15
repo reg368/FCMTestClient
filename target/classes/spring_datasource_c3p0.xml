@@ -13,11 +13,17 @@
 
 	
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">  
-        <property name="driverClass" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+        <!--<property name="driverClass" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
 		<property name="jdbcUrl"
 			value="jdbc:sqlserver://10.10.4.80:1433;DatabaseName=BAPHIQ" />
 		<property name="user" value="baphiq" />
-		<property name="password" value="baphiq" />
+		<property name="password" value="baphiq" /> -->
+		
+		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="jdbcUrl"
+			value="jdbc:oracle:thin:@52.196.149.43:1521:XE" />
+		<property name="user" value="fcmDB" />
+		<property name="password" value="fcmDB1q2w3e4r" />
 
 		<!-- 初始化時創建的連接數，應在minPoolSize與maxPoolSize之間取值。默認為3 -->
         <property name="initialPoolSize" value="10" />  
