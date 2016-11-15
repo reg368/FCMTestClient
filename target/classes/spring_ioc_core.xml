@@ -11,7 +11,7 @@
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 	
 	<!--靜態化ApplicationContext-->
-	<!--  <bean id="InfoUserServiceImpl" class="hyweb.gip.dao.service.impl.InfoUserServiceImpl"/> -->
+	<bean id="DeviceInfoServiceImpl" class="hyweb.gip.dao.service.impl.DeviceInfoServiceImpl"/>
 	
 	
 </beans>
