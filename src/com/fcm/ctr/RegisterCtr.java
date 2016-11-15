@@ -1,8 +1,15 @@
 package com.fcm.ctr;
 
+import hyweb.gip.dao.service.DeviceInfoService;
+import hyweb.gip.pojo.mybatis.table.DeviceInfo;
+import hyweb.util.SpringLifeCycle;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Map;
+
+
+
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +28,9 @@ import com.google.gson.GsonBuilder;
 public class RegisterCtr {
 	
 	
+	private DeviceInfoService deviceInfoService = 
+			(DeviceInfoService)SpringLifeCycle.getBean("DeviceInfoServiceImpl");
+	
 	 @RequestMapping(value="device",  produces="application/json; charset=utf-8",
 	            method = {RequestMethod.GET, RequestMethod.POST})
 	    public String appRegister(HttpServletRequest req,HttpServletResponse res) throws IOException{
@@ -37,14 +47,17 @@ public class RegisterCtr {
 
 		  Map map = (Map) gson.fromJson(jb.toString(), Object.class);
 		  
-		  String key = (String)map.get("key");
-		  
 		  Map contentMap = (Map)map.get("content");  
 		  String packageName = (String)contentMap.get("packageName");
 		  String platform = (String)contentMap.get("platform");
 		  String token = (String)contentMap.get("token");
 		  
+		  DeviceInfo device = new DeviceInfo();
+		  device.setToken(packageName);
+		  device.setToken(platform);
+		  device.setToken(token);
 		  
+		  deviceInfoService.insert(device);
 		  
 		  
 		  return "index2";
