@@ -56,6 +56,11 @@ public class DeviceInfo implements Serializable {
 		this.lastSendDate = lastSendDate;
 	}
 	
-	
+	@Override
+	   public String toString()
+	   {
+	      return "DeviceInfo [seq=" + seq + ", token=" + token + ", " +
+	            "platform=" + platform + ", packageName=" + packageName + "]";
+	   }
 	
 }

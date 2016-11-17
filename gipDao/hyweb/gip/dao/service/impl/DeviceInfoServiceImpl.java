@@ -16,7 +16,14 @@ public class DeviceInfoServiceImpl implements DeviceInfoService {
 	@Transactional
 	public int insert(DeviceInfo record) {
 		// TODO Auto-generated method stub
-		return deviceInfoMapper.insert(record);
+		 
+		int success = deviceInfoMapper.insert(record);
+		if(success == 1){
+			record.setSeq(record.getSeq()+1);
+			return record.getSeq();
+		}else{
+			return -1;
+		}
 	}
 
 }

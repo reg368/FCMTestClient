@@ -4,19 +4,30 @@
   <resultMap id="BaseResultMap" type="hyweb.gip.pojo.mybatis.table.DeviceInfo" >
     <id column="seq" property="seq" jdbcType="INTEGER" />
     <result column="token" property="token" jdbcType="VARCHAR" />
-    <result column="platform" property="platform" jdbcType="NVARCHAR" />
-    <result column="packageName" property="packageName" jdbcType="NVARCHAR" />
+    <result column="platform" property="platform" jdbcType="VARCHAR" />
+    <result column="packageName" property="packageName" jdbcType="VARCHAR" />
     <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
     <result column="updateDate" property="updateDate" jdbcType="TIMESTAMP" />
     <result column="lastsendDate" property="lastsendDate" jdbcType="TIMESTAMP" />
   </resultMap>
+  
   <sql id="Base_Column_List" >
     seq, token, platform, packageName, createDate, updateDate, lastsendDate
   </sql>
+  
+  <sql id="Table_Sequence">deviceInfo_seq.nextVal</sql>
+  <sql id="Table_Name">DeviceInfo</sql>
+  
   <insert id="insert" parameterType="hyweb.gip.pojo.mybatis.table.DeviceInfo" >
-    insert into DeviceInfo (seq, token, platform, packageName)
-    values (deviceInfo_seq.nextVal, #{token,jdbcType=VARCHAR}, #{platform,jdbcType=NVARCHAR}, 
-      #{packageName,jdbcType=NVARCHAR}
+  
+    insert into <include refid="Table_Name" /> (seq, token, platform, packageName)
+    values (<include refid="Table_Sequence" />, #{token,jdbcType=VARCHAR}, #{platform,jdbcType=VARCHAR}, 
+      #{packageName,jdbcType=VARCHAR}
       )
+   
+    <selectKey keyProperty="seq" resultType="int" order="BEFORE">
+ 		    select <include refid="Table_Sequence" /> from dual
+  	</selectKey>
+  
   </insert>
 </mapper>
