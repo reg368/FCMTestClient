@@ -13,6 +13,7 @@ public class DeviceInfo implements Serializable {
 	private Date createDate;
 	private Date updateDate;
 	private Date lastSendDate;
+	
 	public Integer getSeq() {
 		return seq;
 	}

@@ -16,6 +16,8 @@ import java.util.Map;
 
 
 
+import java.util.ResourceBundle;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -39,7 +41,7 @@ public class RegisterCtr {
 	            method = {RequestMethod.GET, RequestMethod.POST})
 	    public void appRegister(HttpServletRequest req,HttpServletResponse res) throws IOException{
 		
-		 res.setContentType("application/json");
+		 res.setContentType("application/json ;charset=UTF-8");
 		 PrintWriter out = res.getWriter();
 		 JSONObject json = new JSONObject();
 		 
@@ -58,7 +60,7 @@ public class RegisterCtr {
 			  out.write(json.toString());
 			  return;
 		  }
-
+		
 		  try {
 			  
 			  DeviceInfo device =  gson.fromJson(jb.toString(),DeviceInfo.class);
