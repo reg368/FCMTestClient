@@ -31,11 +31,11 @@ import com.google.gson.GsonBuilder;
 @RequestMapping("/register")
 public class RegisterCtr {
 	
-	/* http://{domain}/FCMNotification/webSite/register/device */
+	/*    http://{domain}/FCMNotification/webSite/register/new     */
 	private DeviceInfoService deviceInfoService = 
 			(DeviceInfoService)SpringLifeCycle.getBean("DeviceInfoServiceImpl");
 	
-	 @RequestMapping(value="device", 
+	 @RequestMapping(value="new", 
 	            method = {RequestMethod.GET, RequestMethod.POST})
 	    public void appRegister(HttpServletRequest req,HttpServletResponse res) throws IOException{
 		
