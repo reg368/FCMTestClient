@@ -31,7 +31,7 @@ public class FcmSendCtr {
 			throws IOException {
 
 		JSONObject body = new JSONObject();
-		body.put("to", PropertiesUtil.getProp("fcm.test.token"));
+		body.put("to", PropertiesUtil.getProp("fcm.test.token.ipad"));
 		//加上 priority : high    *讓app在背景或關閉時也會跳出推撥通知
 		body.put("priority", "high");
 
@@ -79,7 +79,7 @@ public class FcmSendCtr {
 		JSONObject body = new JSONObject();
 		body.put("operation", "create");
 		body.put("notification_key_name", PropertiesUtil.getProp("fcm.group.notification_key_name"));
-		String[] tokens = {PropertiesUtil.getProp("fcm.test.token")};
+		String[] tokens = {PropertiesUtil.getProp("fcm.test.token.ipad")};
 		body.put("registration_ids", tokens);
 	    System.out.println("post json : "+body.toString());
 		
@@ -101,7 +101,7 @@ public class FcmSendCtr {
 		body.put("operation", "add");
 		body.put("notification_key_name", PropertiesUtil.getProp("fcm.group.notification_key_name"));
 		//增加的裝置token
-		String[] tokens = {PropertiesUtil.getProp("fcm.test.token"),PropertiesUtil.getProp("fcm.test.token.iphone")};
+		String[] tokens = {PropertiesUtil.getProp("fcm.test.token.ipad"),PropertiesUtil.getProp("fcm.test.token.iphone")};
 		body.put("registration_ids", tokens);
 		body.put("notification_key", PropertiesUtil.getProp("fcm.group.notification_key"));
 		
