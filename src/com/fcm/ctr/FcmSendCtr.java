@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/send")
 public class FcmSendCtr {
 
+	/* 單一裝置token 送推撥 */
 	/* http://{domain}/FCMNotification/webSite/send/device */
 	@RequestMapping(value = "device", method = { RequestMethod.GET,
 			RequestMethod.POST })
@@ -31,6 +32,7 @@ public class FcmSendCtr {
 
 		JSONObject body = new JSONObject();
 		body.put("to", PropertiesUtil.getProp("fcm.test.token"));
+		//加上 priority : high    *讓app在背景或關閉時也會跳出推撥通知
 		body.put("priority", "high");
 
 		JSONObject notification = new JSONObject();
@@ -44,6 +46,7 @@ public class FcmSendCtr {
 
 	}
 	
+	/* (topic)由 client app 端訂閱"topic" , server 端針對topic 送出推撥  */
 	/* http://{domain}/FCMNotification/webSite/send/topic */
 	@RequestMapping(value = "topic", method = { RequestMethod.GET,
 			RequestMethod.POST })
@@ -52,10 +55,12 @@ public class FcmSendCtr {
 		
 		JSONObject body = new JSONObject();
 		body.put("to", "/topics/"+PropertiesUtil.getProp("fcm.test.topic"));
+		//加上 priority : high    *讓app在背景或關閉時也會跳出推撥通知
+		body.put("priority", "high");
 		
 		JSONObject notification = new JSONObject();
-		notification.put("body", "group message string here");
-		notification.put("title", "group message string here");
+		notification.put("body", "topic message string here");
+		notification.put("title", "topic message string here");
 		body.put("notification", notification);
 		//body.put("data", notification);
 		
@@ -64,6 +69,7 @@ public class FcmSendCtr {
 	
 	}
 	
+	/* 向Firebase Server 建立一群組 , 推撥時透過群組key發送訊息 (建立成功會回傳notification_key , 要保存好)  */
 	/* http://{domain}/FCMNotification/webSite/send/groupCreate */
 	@RequestMapping(value = "groupCreate", method = { RequestMethod.GET,
 			RequestMethod.POST })
@@ -75,14 +81,15 @@ public class FcmSendCtr {
 		body.put("notification_key_name", PropertiesUtil.getProp("fcm.group.notification_key_name"));
 		String[] tokens = {PropertiesUtil.getProp("fcm.test.token")};
 		body.put("registration_ids", tokens);
-	    
+	    System.out.println("post json : "+body.toString());
 		
-		String result = postUrlWithJsonString(body.toString(),PropertiesUtil.getProp("fcm.group.create.url"));
+		String result = postUrlWithJsonString(body.toString(),PropertiesUtil.getProp("fcm.group.url"));
 		System.out.println(result);
 		
 	}
 
 	
+	/* 推撥群組增加成員 (需預先取得群組的notification_key) */
 	/* http://{domain}/FCMNotification/webSite/send/groupAdd */
 	@RequestMapping(value = "groupAdd", method = { RequestMethod.GET,
 			RequestMethod.POST })
@@ -90,6 +97,41 @@ public class FcmSendCtr {
 			throws IOException{
 		
 		
+		JSONObject body = new JSONObject();
+		body.put("operation", "add");
+		body.put("notification_key_name", PropertiesUtil.getProp("fcm.group.notification_key_name"));
+		//增加的裝置token
+		String[] tokens = {PropertiesUtil.getProp("fcm.test.token"),PropertiesUtil.getProp("fcm.test.token.iphone")};
+		body.put("registration_ids", tokens);
+		body.put("notification_key", PropertiesUtil.getProp("fcm.group.notification_key"));
+		
+	    System.out.println("post json : "+body.toString());
+		
+		String result = postUrlWithJsonString(body.toString(),PropertiesUtil.getProp("fcm.group.url"));
+		System.out.println(result);
+		
+	}
+	
+	/* (device group)透過預先建立的群組發送推撥 (需預先取得群組的notification_key)  */
+	/* http://{domain}/FCMNotification/webSite/send/groupSend */
+	@RequestMapping(value = "groupSend", method = { RequestMethod.GET,
+			RequestMethod.POST })
+	public void groupSend(HttpServletRequest req, HttpServletResponse res)
+			throws IOException{
+		
+		JSONObject body = new JSONObject();
+		body.put("to", PropertiesUtil.getProp("fcm.group.notification_key"));
+		//加上 priority : high    *讓app在背景或關閉時也會跳出推撥通知
+		body.put("priority", "high");
+		
+		JSONObject notification = new JSONObject();
+		notification.put("body", "body group string here");
+		notification.put("title", "title group string here");
+
+		body.put("notification", notification);
+		
+		String result = postUrlWithJsonString(body.toString(),PropertiesUtil.getProp("fcm.message.send.url"));
+		System.out.println(result);
 	}
 	
 	
@@ -100,7 +142,7 @@ public class FcmSendCtr {
 		post.setHeader("Authorization",
 				"key=" + PropertiesUtil.getProp("fcm.server.key"));
 		post.setHeader("content-type", "application/json");
-		post.setHeader("project_id",PropertiesUtil.getProp("fcm.test.appid"));
+		post.setHeader("project_id",PropertiesUtil.getProp("fcm.sender.id"));
 		post.setEntity(entity);
 		
 		HttpResponse response = httpClient.execute(post);
