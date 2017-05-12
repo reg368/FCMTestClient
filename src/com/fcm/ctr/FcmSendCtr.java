@@ -135,7 +135,7 @@ public class FcmSendCtr {
 	}
 	
 	
-	private String postUrlWithJsonString(String jsonStr,String url) throws IOException{
+	public String postUrlWithJsonString(String jsonStr,String url) throws IOException{
 		StringEntity entity = new StringEntity(jsonStr);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(url);

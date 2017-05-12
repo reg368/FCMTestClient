@@ -85,6 +85,15 @@ public class DeviceInfo implements Serializable {
 	public void setLastsendtoken(String lastsendtoken) {
 		this.lastsendtoken = lastsendtoken;
 	}
+	@Override
+	public String toString() {
+		return "DeviceInfo [seq=" + seq + ", userid=" + userid + ", password="
+				+ password + ", clienttoken=" + clienttoken + ", devicetoken="
+				+ devicetoken + ", clientpaltform=" + clientpaltform
+				+ ", packagename=" + packagename + ", createdate=" + createdate
+				+ ", updatedate=" + updatedate + ", lastsenddate="
+				+ lastsenddate + ", lastsendtoken=" + lastsendtoken + "]";
+	}
 	
 	
 	

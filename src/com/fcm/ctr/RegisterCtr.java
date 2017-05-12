@@ -8,15 +8,7 @@ import hyweb.util.SpringLifeCycle;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Map;
-
-
-
-
-
-
-
-import java.util.ResourceBundle;
+import java.util.Calendar;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,11 +25,20 @@ import com.google.gson.GsonBuilder;
 @RequestMapping("/register")
 public class RegisterCtr {
 	
-	/*    http://{domain}/FCMNotification/webSite/register/new     */
+	/*    http://{domain}/FCMNotification/webSite/register/registed     */
+	//    註冊 : 由 client app 發送註冊訊息(包含 自己的token 和  穿戴裝置的token
+	/*
+	 * {
+			"clientpaltform":"android",
+			"clienttoken":"12345",
+			"devicetoken":"12345"
+			"packagename":"james.com.fcmtest"
+		}
+	 * */
 	private DeviceInfoService deviceInfoService = 
 			(DeviceInfoService)SpringLifeCycle.getBean("DeviceInfoServiceImpl");
 	
-	 @RequestMapping(value="new", 
+	 @RequestMapping(value="registed", 
 	            method = {RequestMethod.GET, RequestMethod.POST})
 	    public void appRegister(HttpServletRequest req,HttpServletResponse res) throws IOException{
 		
@@ -55,57 +56,44 @@ public class RegisterCtr {
 		      jb.append(line);
 		  } catch (Exception e) { 
 			  json.put("status", "N");
-			  json.put("seq", "N");
-			  json.put("message", "fail : data struct is incorrect  ");
+			  json.put("message", "fail : json format is incorrect  ");
 			  out.write(json.toString());
 			  return;
 		  }
 		
 		  try {
-			  
 			  DeviceInfo device =  gson.fromJson(jb.toString(),DeviceInfo.class);
-			  
-			  if((device.getToken() == null || device.getToken().trim().length() == 0) || 
-					  (device.getPackageName() == null || device.getPackageName().trim().length() == 0)
-					  ){
-				  json.put("status", "N");
-				  json.put("seq", "N");
-				  json.put("message", "fail : token and packageName  couldn't empty");
-				  out.write(json.toString());
-				  return;
-			  }
-			  
-			  if(!"A".equals(device.getPlatform()) && !"I".equals(device.getPlatform())){
-				  json.put("status", "N");
-				  json.put("seq", "N");
-				  json.put("message", "fail : platform is incorrect");
-				  out.write(json.toString());
-				  return;
-			  }
-			  
-			  int pk = -1;
-			  pk = deviceInfoService.insert(device);
-			 		  
-			  if(pk != -1){
+			  if(device.getClienttoken() != null && device.getDevicetoken() != null){
+				  
+				  DeviceInfo client = deviceInfoService.selectByClientToken(device.getClienttoken());
+				  if(client != null && client.getClienttoken() != null){
+					  json.put("status", "N");
+					  json.put("message", "fail : client token exist");
+					  out.write(json.toString());
+					  return;
+				  }
+				  
+				  device.setCreatedate(Calendar.getInstance().getTime());
+				  deviceInfoService.insert(device);
+				  
 				  json.put("status", "Y");
-				  json.put("seq", pk);
-				  json.put("message", "success");
+				  json.put("message", "register success");
+				  out.write(json.toString());
+				  return;
+				  
 			  }else{
 				  json.put("status", "N");
-				  json.put("seq", "");
-				  json.put("message", "fail");
+				  json.put("seq", "N");
+				  json.put("message", "fail : token incorrect ");
+				  out.write(json.toString());
+				  return;
 			  }
-			
-			  out.write(json.toString());
-			  out.flush();
-			  out.close();
-			  return;
-			  
+
 		  }catch(Exception e){
 			  json.put("status", "N");
-			  json.put("seq", "N");
-			  json.put("message", "fail : data struct is incorrect ");
+			  json.put("message", "fail : json format is incorrect or insert / update fail ");
 			  out.write(json.toString());
+			  e.printStackTrace(System.out);
 			  return;
 		  }
 
