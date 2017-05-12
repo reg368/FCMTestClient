@@ -5,14 +5,19 @@ import java.util.Date;
 
 
 public class DeviceInfo implements Serializable {
-	
+
+	private static final long serialVersionUID = 1L;
 	private Integer seq;
-	private String token;
-	private String platform;
-	private String packageName;
-	private Date createDate;
-	private Date updateDate;
-	private Date lastSendDate;
+	private String userid;
+	private String password;
+	private String clienttoken;
+	private String devicetoken;
+	private String clientpaltform;
+	private String packagename;
+	private Date createdate;
+	private Date updatedate;
+	private Date lastsenddate;
+	private String lastsendtoken;
 	
 	public Integer getSeq() {
 		return seq;
@@ -20,48 +25,67 @@ public class DeviceInfo implements Serializable {
 	public void setSeq(Integer seq) {
 		this.seq = seq;
 	}
-	public String getToken() {
-		return token;
+	public String getUserid() {
+		return userid;
 	}
-	public void setToken(String token) {
-		this.token = token;
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
-	public String getPlatform() {
-		return platform;
+	public String getPassword() {
+		return password;
 	}
-	public void setPlatform(String platform) {
-		this.platform = platform;
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	public String getPackageName() {
-		return packageName;
+	public String getClienttoken() {
+		return clienttoken;
 	}
-	public void setPackageName(String packageName) {
-		this.packageName = packageName;
+	public void setClienttoken(String clienttoken) {
+		this.clienttoken = clienttoken;
 	}
-	public Date getCreateDate() {
-		return createDate;
+	public String getDevicetoken() {
+		return devicetoken;
 	}
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setDevicetoken(String devicetoken) {
+		this.devicetoken = devicetoken;
 	}
-	public Date getUpdateDate() {
-		return updateDate;
+	public String getClientpaltform() {
+		return clientpaltform;
 	}
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
+	public void setClientpaltform(String clientpaltform) {
+		this.clientpaltform = clientpaltform;
 	}
-	public Date getLastSendDate() {
-		return lastSendDate;
+	public String getPackagename() {
+		return packagename;
 	}
-	public void setLastSendDate(Date lastSendDate) {
-		this.lastSendDate = lastSendDate;
+	public void setPackagename(String packagename) {
+		this.packagename = packagename;
+	}
+	public Date getCreatedate() {
+		return createdate;
+	}
+	public void setCreatedate(Date createdate) {
+		this.createdate = createdate;
+	}
+	public Date getUpdatedate() {
+		return updatedate;
+	}
+	public void setUpdatedate(Date updatedate) {
+		this.updatedate = updatedate;
+	}
+	public Date getLastsenddate() {
+		return lastsenddate;
+	}
+	public void setLastsenddate(Date lastsenddate) {
+		this.lastsenddate = lastsenddate;
+	}
+	public String getLastsendtoken() {
+		return lastsendtoken;
+	}
+	public void setLastsendtoken(String lastsendtoken) {
+		this.lastsendtoken = lastsendtoken;
 	}
 	
-	@Override
-	   public String toString()
-	   {
-	      return "DeviceInfo [seq=" + seq + ", token=" + token + ", " +
-	            "platform=" + platform + ", packageName=" + packageName + "]";
-	   }
+	
 	
 }
