@@ -31,7 +31,7 @@
     		#{clientpaltform,jdbcType=NVARCHAR},
     		#{packagename,jdbcType=NVARCHAR},
      		#{createdate,jdbcType=TIMESTAMP},
-     		#{updatetime,jdbcType=TIMESTAMP},
+     		#{updatedate,jdbcType=TIMESTAMP},
      		#{lastsenddate,jdbcType=TIMESTAMP},
      		#{lastsendtoken,jdbcType=NVARCHAR}
      )  	
@@ -46,7 +46,7 @@
     		clientpaltform =#{clientpaltform,jdbcType=NVARCHAR},
     		packageName =#{packagename,jdbcType=NVARCHAR},
      		createDate =#{createdate,jdbcType=TIMESTAMP},
-     		updateDate =#{updatetime,jdbcType=TIMESTAMP},
+     		updateDate =#{updatedate,jdbcType=TIMESTAMP},
      		lastsendDate =#{lastsenddate,jdbcType=TIMESTAMP},
      		lastsendToken =#{lastsendtoken,jdbcType=NVARCHAR}
      		where seq = #{seq,jdbcType=INTEGER}  	
